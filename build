@@ -241,8 +241,8 @@ function parse_parameters() {
 
     # Default values
     case "${ARCH}" in
-        "arm") TARGET="arm-linux-gnueabi" ;;
-        "arm64") TARGET="aarch64-linux-gnu" ;;
+        "arm") TARGET="arm-silont-linux-gnueabi" ;;
+        "arm64") TARGET="aarch64-silont-linux-gnu" ;;
         "host") [[ ${VERSION} -le $(gcc -dumpversion | cut -d '.' -f 1) ]] && die "Building toolchain older than distribution one is not supported on host target!"
                 ARCH="$(uname -m)"
                 TARGET="$(gcc -dumpmachine)"
@@ -788,10 +788,11 @@ function ending_info() {
 
 function push_sources()
 {
+    UPSTREAM_BRANCH="${ARCH}/$VERSION"
     DATE="$(date +%d%m%Y)"
     BUILDER_COMMIT="$(git rev-parse HEAD)"
-    if [ ${TARGET} == "arm-linux-gnueabi" ]; then
-        git clone "https://theradcolor:${GITHUB_TOKEN}@github.com/theradcolor/arm-linux-gnueabi" upstream
+    if [ ${TARGET} == "arm-silont-linux-gnueabi" ]; then
+        git clone "https://${GITHUB_TOKEN}@github.com/silont-project/arm-silont-linux-gnueabi" upstream -b arm/${VERSION}
         cd upstream || exit
         rm -rf *
         cp -r ../${TARGET}/* .
@@ -808,8 +809,8 @@ GCC VERSION: $(/drone/src/builder/${TARGET}/bin/${TARGET}-gcc --version | head -
 GCC COMMIT URL: https://github.com/gcc-mirror/gcc/commit/${GCC_HEAD_COMMIT}
 BUILDER COMMIT: ${BUILDER_COMMIT}" && git push
         fi
-    elif [ ${TARGET} == "aarch64-linux-gnu" ]; then
-        git clone "https://theradcolor:${GITHUB_TOKEN}@github.com/theradcolor/aarch64-linux-gnu" upstream
+    elif [ ${TARGET} == "aarch64-silont-linux-gnu" ]; then
+        git clone "https://${GITHUB_TOKEN}@github.com/silont-project/aarch64-silont-linux-gnu" upstream -b arm64/${VERSION}
         cd upstream || exit
         rm -rf *
         cp -r ../${TARGET}/* .
@@ -826,8 +827,8 @@ GCC VERSION: $(/drone/src/builder/${TARGET}/bin/${TARGET}-gcc --version | head -
 GCC COMMIT URL: https://github.com/gcc-mirror/gcc/commit/${GCC_HEAD_COMMIT}
 BUILDER COMMIT: ${BUILDER_COMMIT}" && git push
         fi
-    elif [ ${TARGET} == "x86_64-linux-gnu" ]; then
-        git clone "https://theradcolor:${GITHUB_TOKEN}@github.com/theradcolor/x86_64-linux-gnu" upstream
+    elif [ ${TARGET} == "x86_64-silont-linux-gnu" ]; then
+        git clone "https://${GITHUB_TOKEN}@github.com/silont-project/x86_64-silont-linux-gnu" upstream
         cd upstream || exit
         rm -rf *
         cp -r ../${TARGET}/* .
@@ -851,14 +852,14 @@ BUILDER COMMIT: ${BUILDER_COMMIT}" && git push
 
 function push_logs()
 {
-    TG_TOKEN="123:xyz"
-    CHAT_ID="-1001375712567"
+    TG_TOKEN=123;asu
+    CHAT_ID="-1001125236454"
 
-    if [ ${TARGET} == "arm-linux-gnueabi" ]; then
+    if [ ${TARGET} == "arm-silont-linux-gnueabi" ]; then
         LOG="/drone/src/build-arm-gnu-gcc.log"
-    elif [ ${TARGET} == "aarch64-linux-gnu" ]; then
+    elif [ ${TARGET} == "aarch64-silont-linux-gnu" ]; then
         LOG="/drone/src/build-arm64-gnu-gcc.log"
-    elif [ ${TARGET} == "x86_64-linux-gnu" ]; then
+    elif [ ${TARGET} == "x86_64-silont-linux-gnu" ]; then
         LOG="/drone/src/build-x86_64-gnu-gcc.log"
     else
         echo "No scripting"
@@ -870,6 +871,12 @@ function push_logs()
 		-F "parse_mode=html" \
         -F caption="Build logs GCC for Target: ${TARGET}"
 
+}
+
+function clean_output()
+{
+    cd ../
+    rm -rf aarch64-silont* arm-silont* x86_64-silont* build-x86_64* build-aarch64* build-arm*
 }
 
 setup_variables
@@ -891,3 +898,4 @@ package_tc
 ending_info
 push_sources
 push_logs
+clean_output
