@@ -853,7 +853,7 @@ BUILDER COMMIT: ${BUILDER_COMMIT}" && git push
 function push_logs()
 {
     TG_TOKEN=123;asu
-    CHAT_ID="-1001125236454"
+    CHAT_ID=" -1001225236454"
 
     if [ ${TARGET} == "arm-silont-linux-gnueabi" ]; then
         LOG="/drone/src/build-arm-gnu-gcc.log"
