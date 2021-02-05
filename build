@@ -184,8 +184,8 @@ function setup_variables() {
 
     # Configuration variables
     CONFIGURATION=( "--disable-multilib" "--disable-werror"
-                    "CFLAGS=-g0 -O3 -fstack-protector-strong"
-                    "CXXFLAGS=-g0 -O3 -fstack-protector-strong" )
+                    "CFLAGS=-g0 -O3 -fstack-protector-strong -fuse-linker-plugin -ffunction-sections -fdata-sections"
+                    "CXXFLAGS=-g0 -O3 -fstack-protector-strong -fuse-linker-plugin -ffunction-sections -fdata-sections" )
     JOBS="-j$(($(nproc --all) + 1))"
     DEPTH_FLAG=true
 
@@ -201,10 +201,10 @@ function setup_variables() {
     ISL_tar="isl-0.23"
     GLIBC_git="master"
     GLIBC_tar="glibc-2.32"
-    LINUX="5.10"
+    LINUX="5.11"
 
     # Timezone
-    export TZ=Asia/Kolkata
+    export TZ=Asia/Jakarta
 
     # Start of script
     START=$(date +%s)
