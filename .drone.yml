@@ -6,7 +6,7 @@ clone:
 
 steps:
 - name: GNU GCC ARM
-  image: archlinux:latest
+  image: archlinux:base-20210131.0.14634
   environment:
       GITHUB_TOKEN:
         from_secret: GITHUB_TOKEN
@@ -28,7 +28,7 @@ clone:
 
 steps:
 - name: GNU GCC ARM
-  image: archlinux:latest
+  image: archlinux:base-20210131.0.14634
   environment:
       GITHUB_TOKEN:
         from_secret: GITHUB_TOKEN
@@ -50,7 +50,7 @@ clone:
 
 steps:
 - name: GNU GCC ARM
-  image: archlinux:latest
+  image: archlinux:base-20210131.0.14634
   environment:
       GITHUB_TOKEN:
         from_secret: GITHUB_TOKEN
@@ -72,7 +72,7 @@ clone:
 
 steps:
 - name: GNU GCC ARM64
-  image: archlinux:latest
+  image: archlinux:base-20210131.0.14634
   environment:
       GITHUB_TOKEN:
         from_secret: GITHUB_TOKEN
@@ -94,7 +94,7 @@ clone:
 
 steps:
 - name: GNU GCC ARM64
-  image: archlinux:latest
+  image: archlinux:base-20210131.0.14634
   environment:
       GITHUB_TOKEN:
         from_secret: GITHUB_TOKEN
@@ -116,7 +116,7 @@ clone:
 
 steps:
 - name: GNU GCC ARM64
-  image: archlinux:latest
+  image: archlinux:base-20210131.0.14634
   environment:
       GITHUB_TOKEN:
         from_secret: GITHUB_TOKEN
