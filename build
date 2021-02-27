@@ -183,7 +183,7 @@ function setup_variables() {
     YLW="\033[01;33m"
 
     # Configuration variables
-    CONFIGURATION=( "--disable-multilib" "--disable-werror"
+    CONFIGURATION=( "--disable-multilib" "--disable-werror" "--with-pkgversion=NgentodGCC"
                     "CFLAGS=-g0 -O3 -fstack-protector-strong -fuse-linker-plugin -ffunction-sections -fdata-sections"
                     "CXXFLAGS=-g0 -O3 -fstack-protector-strong -fuse-linker-plugin -ffunction-sections -fdata-sections" )
     JOBS="-j$(($(nproc --all) + 1))"
